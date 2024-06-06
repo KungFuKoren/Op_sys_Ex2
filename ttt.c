@@ -7,26 +7,64 @@ int main(int argc ,char* argv[]){
         return 1;
     }
     int available[] = {1,2,3,4,5,6,7,8,9};
+    int *order = stringToIntArray(argv[1]);
     int board[9];
     int turn = 0;
+    int bool = 0;
+    int comp_pick = 0;
+
     while(turn < 9){
         int temp = 0;
-        if(turn%2 == 0){
-            if(play(argv[1][turn] , available)){
-                
+        bool = 0;
+        while(bool){
+            if(turn%2){
+                if(play(order[comp_pick], available)){ // convert here to ints instead of argv
+                    comp_pick ++;
+                    turn++;
+                    bool = 1;
+                }
+                if(!play(order[comp_pick] , available)){ // convert here to ints 
+                    comp_pick ++;
+                }
             }
-        }
-        if(turn%2 == 1){
-            //Player input
-        }
+            if(!(turn%2)){
+                int char_pick;
+                printf("Please enter a number from 1-9");
+                scanf("%d" , &char_pick);
+                if(play(char_pick , available)){
+                    // change board at place
+                    turn++;
+                    bool = 1;
+                }
+                if(!play(char_pick , available)){
+                    printf("Invalid input");
+                }
 
 
+
+            }
+            
+        }
+       
     }
 
 
     
 
 return 0;
+}
+int* stringToIntArray(char str[9]) {
+    int str_length = 9;
+    int* int_array = (int*)malloc(9 * sizeof(int));
+    
+    for (int i = 0; i < str_length; i++) {
+        if (str[i] >= '0' && str[i] <= '9') {
+            int_array[i] = str[i] - '0'; // Convert char to int
+        } 
+        
+    }
+
+    return int_array;
 }
 
 int checkArgs(int argc , char* argv[]){  
