@@ -1,52 +1,62 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+checkArgs(int argc , char* argv[]);
 
 int main(int argc ,char* argv[]){
     if(!checkArgs(argc , argv)){
         return 1;
     }
     int available[] = {1,2,3,4,5,6,7,8,9};
-    int *order = stringToIntArray(argv[1]);
-    int board[9];
-    int turn = 0;
-    int bool = 0;
-    int comp_pick = 0;
 
-    while(turn < 9){
-        int temp = 0;
-        bool = 0;
-        while(bool){
-            if(turn%2){
-                if(play(order[comp_pick], available)){ // convert here to ints instead of argv
-                    comp_pick ++;
-                    turn++;
-                    bool = 1;
-                }
-                if(!play(order[comp_pick] , available)){ // convert here to ints 
-                    comp_pick ++;
-                }
-            }
-            if(!(turn%2)){
-                int char_pick;
-                printf("Please enter a number from 1-9");
-                scanf("%d" , &char_pick);
-                if(play(char_pick , available)){
-                    // change board at place
-                    turn++;
-                    bool = 1;
-                }
-                if(!play(char_pick , available)){
-                    printf("Invalid input");
-                }
+    // int *order = stringToIntArray(argv[1]);
+    // char board[9];
+    // int turn = 0;
+    // int bool = 0;
+    // int comp_pick = 0;
+
+    // while(turn < 9){
+    //     bool = 0;
+    //     while(bool){
+    //         if(turn%2){
+    //             if(play(order[comp_pick], available)){ // convert here to ints instead of argv
+    //                 board[comp_pick-1] = 'X';
+    //                 printf("Played X on square %d" , comp_pick-1);
+    //                 comp_pick ++;
+    //                 turn++;
+    //                 bool = 1;
+    //             }
+    //             if(!play(order[comp_pick] , available)){ // convert here to ints 
+    //                 comp_pick ++;
+    //             }
+    //         }
+    //         if(!(turn%2)){
+    //             int char_pick;
+    //             printf("Please enter a number from 1-9");
+    //             scanf("%d" , &char_pick);
+    //             if(play(char_pick , available)){
+    //                 // change board at place
+    //                 board[char_pick-1] = 'O';
+    //                 printf("Played O on square %d" , char_pick-1);
+    //                 turn++;
+    //                 bool = 1;
+    //             }
+    //             if(!play(char_pick , available)){
+    //                 printf("Invalid input or square is already taken");
+    //             }
 
 
 
-            }
+    //         }
             
-        }
+            
+    //     }
+    //     if(check_win(board) != -1){
+    //             //END LOOP AND GAME
+    //         }
+    //         //ENDED DRAW
        
-    }
+    // }
 
 
     
@@ -106,59 +116,60 @@ int play(int num , int array[9]){
 }
 
 int check_win(int *board){
-    if(board[4] == 'X' || board[4] == 'V'){
-        if(board[4] == board[1] == board[7]){
+    if(board[4] == 'X' || board[4] == 'O'){
+        if(board[4] == board[1] && board[4] == board[7]){
             if(board[4] == 'X'){
                 // X won
             }
-            // V won
+            // V\O won
         }
-        if(board[4] == board[5] == board[3]){
+        if(board[4] == board[5] && board[4] == board[3]){
             if(board[4] == 'X'){
                 // X won
             }
-            // V won
+            // O won
         }
-        if(board[4] == board[0] == board[8]){
+        if(board[4] == board[0] && board[4] == board[8]){
             if(board[4] == 'X'){
                 // X won
             }
-            // V won
+            // O won
         }
-        if(board[4] == board[2] == board[6]){
+        if(board[4] == board[2] && board[4] == board[6]){
             if(board[4] == 'X'){
                 // X won
             }
-            // V won
+            // O won
         }
     }
-    if(board[0] == 'X' || board[0] == 'V'){
-        if(board[0] == board[1] == board[2]){
+    if(board[0] == 'X' || board[0] == 'O'){
+        if(board[0] == board[1] && board[0]== board[2]){
             if(board[0] == 'X'){
                 // X won
             }
             // V won
         }
-        if(board[0] == board[3] == board[6]){
+        if(board[0] == board[3] && board[0] == board[6]){
             if(board[0] == 'X'){
                 // X won
             }
-            // V won
+            // O won
         }
 
     }
-    if(board[8] == 'X' || board[8] == 'V'){
-        if(board[8] == board[7] == board[6]){
+    if(board[8] == 'X' || board[8] == 'O'){
+        if(board[8] == board[7] && board[8] == board[6]){
             if(board[8] == 'X'){
                 // X won
             }
             // V won
         }
-        if(board[8] == board[5] == board[2]){
+        if(board[8] == board[5] && board[8] == board[2]){
             if(board[8] == 'X'){
                 // X won
             }
-            // V won
+            // O won
         }
     }
+    return -1;
 }
